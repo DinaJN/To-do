@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #todo-container {
+            width: 300px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        /* اضافه کردن استایل برای وظایف تمام شده */
+        .completed-task {
+            text-decoration: line-through;
+            color: #868686;
+        }
+    </style>
+</head>
+<body>
+
+<div id="todo-container">
+    <h2>Todo List</h2>
+    <ul id="todo-list"></ul>
+    <input type="text" id="new-task" placeholder="Add a new task">
+    <button onclick="addTask()">Add Task</button>
+</div>
+
+<script>
+    function addTask() {
+        var newTask = document.getElementById("new-task").value;
+        if (newTask !== "") {
+            var todoList = document.getElementById("todo-list");
+            var li = document.createElement("li");
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.onchange = function() {
+                li.classList.toggle("completed-task", checkbox.checked);
+            };
+
+            li.appendChild(checkbox);
+            li.innerHTML += newTask + '<button onclick="removeTask(this)">Remove</button>';
+            todoList.appendChild(li);
+            document.getElementById("new-task").value = "";
+        }
+    }
+
+    function removeTask(button) {
+        var listItem = button.parentNode;
+        listItem.parentNode.removeChild(listItem);
+    }
+</script>
+
+</body>
+</html>
